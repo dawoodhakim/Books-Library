@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "182443474637",
+    "firebase_url": "https://library-6f649-default-rtdb.firebaseio.com",
+    "project_id": "library-6f649",
+    "storage_bucket": "library-6f649.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:182443474637:android:0a3bcc15a7fa7564f27384",
+        "android_client_info": {
+          "package_name": "com.cigrastudio.booklibrary"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "182443474637-aa04mog2v2c67li1r37llh47pdiuuv43.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDDM9jdUqME2jjt68oyRFdpB93-RfzzoK4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "182443474637-aa04mog2v2c67li1r37llh47pdiuuv43.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
