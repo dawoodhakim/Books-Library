@@ -44,28 +44,28 @@ public class Profile_Activity extends AppCompatActivity {
         user=firebaseAuth.getCurrentUser();
         userId=user.getUid();
 
-        databaseReference.child(userId).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(snapshot.child("name").exists()&&snapshot.child("age").exists()&&snapshot.child("hobby").exists()){
-                    name.setText(String.valueOf(snapshot.child("name").getValue()));
-                    age.setText(String.valueOf(snapshot.child("age").getValue()));
-                    hobby.setText(String.valueOf(snapshot.child("hobby").getValue()));
-                    Intent intent = new Intent(Profile_Activity.this, Bottom_navigation_activity.class);
-                    startActivity(intent);
-                    finish();
-                }else{
-                    name.setText("");
-                    age.setText("");
-                    hobby.setText("");
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
+//        databaseReference.child(userId).addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                if(snapshot.child("name").exists()&&snapshot.child("age").exists()&&snapshot.child("hobby").exists()){
+//                    name.setText(String.valueOf(snapshot.child("name").getValue()));
+//                    age.setText(String.valueOf(snapshot.child("age").getValue()));
+//                    hobby.setText(String.valueOf(snapshot.child("hobby").getValue()));
+//                    Intent intent = new Intent(Profile_Activity.this, Bottom_navigation_activity.class);
+//                    startActivity(intent);
+//                    finish();
+//                }else{
+//                    name.setText("");
+//                    age.setText("");
+//                    hobby.setText("");
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//            }
+//        });
         done.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

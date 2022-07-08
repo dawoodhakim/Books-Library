@@ -114,11 +114,34 @@ public class uploadFragment extends Fragment {
 //            }
 //        });
 
-
+        name_book = book_name.getText().toString();
         upload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
+                String book_category = category.getText().toString();
+                String book_description = description.getText().toString();
+
+                if (name_book.isEmpty()){
+                    book_name.setError("Please enter your name");
+                }else if (book_category.isEmpty()){
+                    category.setError("Please enter your name");
+                }else if (book_description.isEmpty()){
+                    description.setError("Please enter your name");
+                }else{
+                    HashMap<String, Object> user = new HashMap<>();
+                    user.put("book_name", name_book);
+                    user.put("category", book_category);
+                    user.put("description", book_description);
+                    user.put("uploadedby", userName);
+                    user.put("bookimg", imgUrl);
+                    databaseReference.child(userid).child("uploads").child(name_book).updateChildren(user).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            Toast.makeText(getContext(), "Success", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
 
             }
         });
@@ -129,31 +152,7 @@ public class uploadFragment extends Fragment {
 
     private void selectImage() {
 
-        name_book = book_name.getText().toString();
-        String book_category = category.getText().toString();
-        String book_description = description.getText().toString();
 
-
-        if (name_book.isEmpty()){
-            book_name.setError("Please enter your name");
-        }else if (book_category.isEmpty()){
-            category.setError("Please enter your name");
-        }else if (book_description.isEmpty()){
-            description.setError("Please enter your name");
-        }else{
-            HashMap<String, Object> user = new HashMap<>();
-            user.put("book_name", name_book);
-            user.put("category", book_category);
-            user.put("description", book_description);
-                user.put("uploadedby", userName);
-                user.put("bookimg", imgUrl);
-            databaseReference.child(userid).child("uploads").child(name_book).updateChildren(user).addOnCompleteListener(new OnCompleteListener<Void>() {
-                @Override
-                public void onComplete(@NonNull Task<Void> task) {
-                    Toast.makeText(getContext(), "Success", Toast.LENGTH_SHORT).show();
-                }
-            });
-        }
 
         Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
         intent.setType("image/*");
