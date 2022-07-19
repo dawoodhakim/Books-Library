@@ -114,11 +114,11 @@ public class uploadFragment extends Fragment {
 //            }
 //        });
 
-
+        name_book = book_name.getText().toString();
         upload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                name_book = book_name.getText().toString();
+
                 String book_category = category.getText().toString();
                 String book_description = description.getText().toString();
 
@@ -213,6 +213,7 @@ public class uploadFragment extends Fragment {
                         });
                     }
                 });
+
 
             }
         }).addOnFailureListener(new OnFailureListener() {

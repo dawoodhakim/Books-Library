@@ -10,10 +10,11 @@
     <item android:id="@+id/profile"
         android:icon="@drawable/profile"
         android:title="Profile"/>
-    <item android:id="@+id/logout"
-        android:title="Log Out"
-        android:icon="@drawable/logout"/>
     <item android:id="@+id/upload"
         android:icon="@drawable/upload"
         android:title="Upload"/>
+    <item android:id="@+id/logout"
+        android:title="Log Out"
+        android:icon="@drawable/logout"/>
+
 </menu>

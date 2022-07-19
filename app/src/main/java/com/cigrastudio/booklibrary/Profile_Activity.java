@@ -23,18 +23,18 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.HashMap;
 
 public class Profile_Activity extends AppCompatActivity {
-        EditText name,age,hobby;
-        Button done;
-        FirebaseAuth firebaseAuth;
-        FirebaseDatabase firebaseDatabase;
-        DatabaseReference databaseReference;
-        FirebaseUser user;
-        String userId;
+    EditText name,age,hobby;
+    Button done;
+    FirebaseAuth firebaseAuth;
+    FirebaseDatabase firebaseDatabase;
+    DatabaseReference databaseReference;
+    FirebaseUser user;
+    String userId;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
-        name=findViewById(R.id.name_profile_acivity);
+        name=findViewById(R.id.name_profile_activity);
         age=findViewById(R.id.age_profile_activity);
         hobby=findViewById(R.id.hobby_profile_activity);
         done=findViewById(R.id.btn_done_profile_activity);
@@ -43,29 +43,26 @@ public class Profile_Activity extends AppCompatActivity {
         databaseReference=firebaseDatabase.getReference().child("users");
         user=firebaseAuth.getCurrentUser();
         userId=user.getUid();
+        databaseReference.child(userId).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.child("name").exists() && snapshot.child("age").exists() && snapshot.child("hobby").exists()){
+                    name.setText(String.valueOf(snapshot.child("name").getValue()));
+                    hobby.setText(String.valueOf(snapshot.child("hobby").getValue()));
+                    age.setText(String.valueOf(snapshot.child("age").getValue()));
 
-//        databaseReference.child(userId).addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                if(snapshot.child("name").exists()&&snapshot.child("age").exists()&&snapshot.child("hobby").exists()){
-//                    name.setText(String.valueOf(snapshot.child("name").getValue()));
-//                    age.setText(String.valueOf(snapshot.child("age").getValue()));
-//                    hobby.setText(String.valueOf(snapshot.child("hobby").getValue()));
-//                    Intent intent = new Intent(Profile_Activity.this, Bottom_navigation_activity.class);
-//                    startActivity(intent);
-//                    finish();
-//                }else{
-//                    name.setText("");
-//                    age.setText("");
-//                    hobby.setText("");
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        });
+                }else{
+                    name.setText("");
+                    hobby.setText("");
+                    age.setText("");
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
         done.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

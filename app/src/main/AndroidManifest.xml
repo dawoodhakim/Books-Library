@@ -10,10 +10,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.BOOKLIBRARY">
         <activity
-            android:name=".Bottom_navigation_activity"
+            android:name=".Profile_Activity"
             android:exported="false" />
         <activity
-            android:name=".Profile_Activity"
+            android:name=".Bottom_navigation_activity"
             android:exported="false" />
         <activity
             android:name=".Signup_Activity"

@@ -1,66 +1,80 @@
 package com.cigrastudio.booklibrary.fragment;
 
+import android.content.Context;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.cigrastudio.booklibrary.AdapterClass;
+import com.cigrastudio.booklibrary.ModelClass;
 import com.cigrastudio.booklibrary.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link bookFragment#newInstance} factory method to
- * create an instance of this com.cigrastudio.booklibrary.fragment.
- */
+import java.util.ArrayList;
+
+
 public class bookFragment extends Fragment {
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the com.cigrastudio.booklibrary.fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    FirebaseDatabase firebaseDatabase;
+    DatabaseReference databaseReference;
+    ArrayList<ModelClass> userData;
+    RecyclerView recyclerView;
+    Context context;
 
     public bookFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this com.cigrastudio.booklibrary.fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of com.cigrastudio.booklibrary.fragment bookFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static bookFragment newInstance(String param1, String param2) {
-        bookFragment fragment = new bookFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this com.cigrastudio.booklibrary.fragment
-        return inflater.inflate(R.layout.fragment_book, container, false);
+        View view= inflater.inflate(R.layout.fragment_book, container, false);
+        recyclerView=view.findViewById(R.id.recyclerview_book_fragment);
+        firebaseDatabase=FirebaseDatabase.getInstance();
+        databaseReference=firebaseDatabase.getReference().child("books");
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false));
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                userData=new ArrayList<>();
+                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                String uid = user.getUid().toString();
+                for(DataSnapshot dataSnapshot:snapshot.getChildren()){
+                    ModelClass model = dataSnapshot.getValue(ModelClass.class);
+                    String userid = dataSnapshot.getKey();
+                    model.setUserid(userid);
+                    userData.add(model);
+                }
+                AdapterClass adaptor=new AdapterClass(userData,context);
+                recyclerView.setAdapter(adaptor);
+
+//                Log.d("TAG", "User data is: " + userData);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        return view;
     }
 }

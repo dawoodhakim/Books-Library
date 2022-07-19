@@ -39,11 +39,12 @@ public class MainActivity extends AppCompatActivity {
                         Intent intent = new Intent(MainActivity.this, Bottom_navigation_activity.class);
                         startActivity(intent);
                         finish();
-                    }else{
-                        Intent intent=new Intent(MainActivity.this,Profile_Activity.class);
-                        startActivity(intent);
-                        finish();
                     }
+//                    else{
+//                        Intent intent=new Intent(MainActivity.this,Profile_Activity.class);
+//                        startActivity(intent);
+//                        finish();
+//                    }
                 }
 
                 @Override
