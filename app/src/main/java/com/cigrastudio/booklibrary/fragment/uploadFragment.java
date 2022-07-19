@@ -62,7 +62,7 @@ public class uploadFragment extends Fragment {
     ImageView imageView;
 
 
-    StorageReference storageReference;
+
 
     String name_book;
 
@@ -90,7 +90,7 @@ public class uploadFragment extends Fragment {
         user = FirebaseAuth.getInstance().getCurrentUser();
         userId = user.getUid();
 
-        storageReference = FirebaseStorage.getInstance().getReference().child(userId);
+//        storageReference = FirebaseStorage.getInstance().getReference().child(userId);
 
         image_url.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -187,14 +187,17 @@ public class uploadFragment extends Fragment {
 
     private void uploadImage(byte[] imageByte) {
 
-
+        upload.setVisibility(View.VISIBLE);
+        image_url.setVisibility(View.GONE);
 
         ProgressDialog pd = new ProgressDialog(getContext());
 
         pd.setTitle("Uploading Image...");
         pd.show();
+        StorageReference storageReference = FirebaseStorage.getInstance().getReference().child(userId)
+                .child(System.currentTimeMillis() + ".jpg");
 
-        storageReference.child(System.currentTimeMillis() + ".jpg");
+        storageReference.child("images");
 
         storageReference.putBytes(imageByte).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
