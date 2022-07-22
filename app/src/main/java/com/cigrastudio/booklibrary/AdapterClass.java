@@ -36,7 +36,7 @@ public class AdapterClass extends RecyclerView.Adapter<AdapterClass.myviewholder
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     FirebaseAuth firebaseAuth;
     String uid = user.getUid();
-    String userId;
+
 
 
     DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("users").child(uid).child("fav");
@@ -68,6 +68,20 @@ public class AdapterClass extends RecyclerView.Adapter<AdapterClass.myviewholder
         holder.category.setText(data.get(position).getCategory());
         holder.description.setText(data.get(position).getDescription());
         Picasso.get().load(data.get(position).getBookimg()).into( holder.bookimg);
+
+        if (data.get(position).getKey().equals(uid)){
+            holder.itemView.setVisibility(View.GONE);
+        }
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(view.getContext(), "Clicked on position " + position, Toast.LENGTH_SHORT).show();
+//                Log.d("TAG", "Position: " + data.get(position).getKey());
+//                Intent intent = new Intent(view.getContext(), MainActivity.class);
+//                intent.putExtra("name", data.get(position).getName());
+            }
+        });
 
         holder.favourite.setOnClickListener(new View.OnClickListener() {
             @Override

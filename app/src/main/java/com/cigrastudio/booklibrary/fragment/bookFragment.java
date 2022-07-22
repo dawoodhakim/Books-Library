@@ -37,6 +37,8 @@ public class bookFragment extends Fragment {
     Context context;
     String key;
 
+    ModelClass model;
+
     public bookFragment() {
         // Required empty public constructor
     }
@@ -54,7 +56,7 @@ public class bookFragment extends Fragment {
         firebaseAuth=FirebaseAuth.getInstance();
         currentuser=firebaseAuth.getCurrentUser();
         firebaseDatabase=FirebaseDatabase.getInstance();
-        databaseReference=firebaseDatabase.getReference().child("books").child(key);
+        databaseReference=firebaseDatabase.getReference().child("books");
         Log.d("TAG", "onCreateView: " + firebaseDatabase);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false));
         databaseReference.addValueEventListener(new ValueEventListener() {
@@ -64,12 +66,15 @@ public class bookFragment extends Fragment {
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                 String uid = user.getUid().toString();
                 for(DataSnapshot dataSnapshot:snapshot.getChildren()){
-                    ModelClass model = dataSnapshot.getValue(ModelClass.class);
-                    String userid = dataSnapshot.getKey();
-                     key = dataSnapshot.getKey();
+                    for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
+                        model = dataSnapshot1.getValue(ModelClass.class);
+                        String userid = dataSnapshot.getKey();
+
+                        userData.add(model);
+                    }
+                    key = dataSnapshot.getKey();
                     model.setKey(key);
-                    model.setUserid(userid);
-                    userData.add(model);
+                    Log.d("TAG", "Key: " + key);
                 }
                 AdapterClass adaptor=new AdapterClass(userData,context);
                 recyclerView.setAdapter(adaptor);
