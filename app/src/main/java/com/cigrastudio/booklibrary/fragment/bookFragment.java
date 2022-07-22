@@ -30,9 +30,12 @@ import java.util.ArrayList;
 public class bookFragment extends Fragment {
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
+    FirebaseAuth firebaseAuth;
     ArrayList<ModelClass> userData;
+    FirebaseUser currentuser;
     RecyclerView recyclerView;
     Context context;
+    String key;
 
     public bookFragment() {
         // Required empty public constructor
@@ -48,8 +51,11 @@ public class bookFragment extends Fragment {
         // Inflate the layout for this com.cigrastudio.booklibrary.fragment
         View view= inflater.inflate(R.layout.fragment_book, container, false);
         recyclerView=view.findViewById(R.id.recyclerview_book_fragment);
+        firebaseAuth=FirebaseAuth.getInstance();
+        currentuser=firebaseAuth.getCurrentUser();
         firebaseDatabase=FirebaseDatabase.getInstance();
-        databaseReference=firebaseDatabase.getReference().child("books");
+        databaseReference=firebaseDatabase.getReference().child("books").child(key);
+        Log.d("TAG", "onCreateView: " + firebaseDatabase);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false));
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -60,6 +66,8 @@ public class bookFragment extends Fragment {
                 for(DataSnapshot dataSnapshot:snapshot.getChildren()){
                     ModelClass model = dataSnapshot.getValue(ModelClass.class);
                     String userid = dataSnapshot.getKey();
+                     key = dataSnapshot.getKey();
+                    model.setKey(key);
                     model.setUserid(userid);
                     userData.add(model);
                 }

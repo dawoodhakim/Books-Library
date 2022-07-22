@@ -6,6 +6,7 @@
         <entry key="..\:/Books-Library/app/src/main/res/layout/activity_main.xml" value="0.23645833333333333" />
         <entry key="..\:/Users/dawood/AndroidStudioProjects/BOOKLIBRARY/app/src/main/res/drawable/books.xml" value="0.234" />
         <entry key="..\:/Users/dawood/AndroidStudioProjects/BOOKLIBRARY/app/src/main/res/drawable/favorite.xml" value="0.234" />
+        <entry key="..\:/Users/dawood/AndroidStudioProjects/BOOKLIBRARY/app/src/main/res/drawable/ic_baseline_favorite_24.xml" value="0.234" />
         <entry key="..\:/Users/dawood/AndroidStudioProjects/BOOKLIBRARY/app/src/main/res/drawable/logout.xml" value="0.234" />
         <entry key="..\:/Users/dawood/AndroidStudioProjects/BOOKLIBRARY/app/src/main/res/drawable/profile.xml" value="0.234" />
         <entry key="..\:/Users/dawood/AndroidStudioProjects/BOOKLIBRARY/app/src/main/res/drawable/recycler_view.xml" value="0.234" />
@@ -14,7 +15,7 @@
         <entry key="..\:/Users/dawood/AndroidStudioProjects/BOOKLIBRARY/app/src/main/res/layout/activity_login.xml" value="0.2" />
         <entry key="..\:/Users/dawood/AndroidStudioProjects/BOOKLIBRARY/app/src/main/res/layout/activity_main.xml" value="0.2234375" />
         <entry key="..\:/Users/dawood/AndroidStudioProjects/BOOKLIBRARY/app/src/main/res/layout/activity_profile.xml" value="0.2234375" />
-        <entry key="..\:/Users/dawood/AndroidStudioProjects/BOOKLIBRARY/app/src/main/res/layout/activity_signup.xml" value="0.536" />
+        <entry key="..\:/Users/dawood/AndroidStudioProjects/BOOKLIBRARY/app/src/main/res/layout/activity_signup.xml" value="0.264" />
         <entry key="..\:/Users/dawood/AndroidStudioProjects/BOOKLIBRARY/app/src/main/res/layout/activity_upload_book.xml" value="0.2234375" />
         <entry key="..\:/Users/dawood/AndroidStudioProjects/BOOKLIBRARY/app/src/main/res/layout/fragment_book.xml" value="0.2234375" />
         <entry key="..\:/Users/dawood/AndroidStudioProjects/BOOKLIBRARY/app/src/main/res/layout/fragment_favorite.xml" value="0.2234375" />

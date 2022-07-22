@@ -1,23 +1,31 @@
 package com.cigrastudio.booklibrary;
 
 public class ModelClass {
-        String name,age,hobby,userid,book_name,category,description,bookimg,imageurl,uploadedby;
+        String name,age,hobby,userid,book_name,category,description,bookimg,imageurl,uploadedby, key;
 
         public ModelClass() {
         }
 
-        public ModelClass(String name, String age, String hobby, String userid,String book_name,String category,String description,String bookimg,String imageurl,String uploadedby) {
+        public ModelClass(String name, String age, String hobby, String userid, String book_name, String category, String description, String bookimg, String imageurl, String uploadedby, String key) {
                 this.name = name;
-                this.uploadedby=uploadedby;
-                this.imageurl=imageurl;
                 this.age = age;
                 this.hobby = hobby;
                 this.userid = userid;
-                this.book_name=book_name;
-                this.category=category;
-                this.description=description;
-                this.bookimg=bookimg;
+                this.book_name = book_name;
+                this.category = category;
+                this.description = description;
+                this.bookimg = bookimg;
+                this.imageurl = imageurl;
+                this.uploadedby = uploadedby;
+                this.key = key;
+        }
 
+        public String getKey() {
+                return key;
+        }
+
+        public void setKey(String key) {
+                this.key = key;
         }
 
         public String getName() {
@@ -99,4 +107,5 @@ public class ModelClass {
         public void setUploadedby(String uploadedby) {
                 this.uploadedby = uploadedby;
         }
+
 }

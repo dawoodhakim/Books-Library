@@ -29,8 +29,11 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
@@ -52,7 +55,6 @@ public class uploadFragment extends Fragment {
 
     Button image_url;
     FirebaseUser user;
-    String userId;
     String userName;
     String imgUrl;
 
@@ -60,6 +62,7 @@ public class uploadFragment extends Fragment {
     Bitmap bitmap;
 
     ImageView imageView;
+    DatabaseReference db;
 
 
 
@@ -88,37 +91,47 @@ public class uploadFragment extends Fragment {
         databaseReference = firebaseDatabase.getReference().child("users");
         userid = firebaseAuth.getCurrentUser().getUid().toString();
         user = FirebaseAuth.getInstance().getCurrentUser();
-        userId = user.getUid();
 
 //        storageReference = FirebaseStorage.getInstance().getReference().child(userId);
 
         image_url.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                selectImage();
+            public void onClick(View v){
+                String book=book_name.getText().toString();
+                String book_category=category.getText().toString();
+                String book_description=description.getText().toString();
+                if(book.equals("")){
+                    book_name.setError("please enter book name");
+                }else if(book_category.equals("")){
+                    category.setError("please enter category");
+                }else if(book_description.equals("")){
+                    description.setError("please enter description");
+                }else{
+                selectImage(); }}
+        });
+
+
+        databaseReference.child(userid).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.child("name").exists()){
+                    userName = (String) snapshot.child("name").getValue();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
             }
         });
 
 
-//        databaseReference.child(userId).addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                if (snapshot.child("name").exists()){
-//                    userName = (String) snapshot.child("name").getValue();
-//                }
-//            }
 
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        });
-
-        name_book = book_name.getText().toString();
         upload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                db = FirebaseDatabase.getInstance().getReference();
+                name_book = book_name.getText().toString();
                 String book_category = category.getText().toString();
                 String book_description = description.getText().toString();
 
@@ -134,11 +147,23 @@ public class uploadFragment extends Fragment {
                     user.put("category", book_category);
                     user.put("description", book_description);
                     user.put("uploadedby", userName);
-                    user.put("bookimg", imgUrl);
+
+                    db.child("books").child(userid).child(name_book).updateChildren(user).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            Toast.makeText(getContext(), "Success", Toast.LENGTH_SHORT).show();
+                        }
+                    });
                     databaseReference.child(userid).child("uploads").child(name_book).updateChildren(user).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             Toast.makeText(getContext(), "Success", Toast.LENGTH_SHORT).show();
+                            imageView.setImageURI(null);
+                            book_name.setText("");
+                            category.setText("");
+                            description.setText("");
+                            upload.setVisibility(View.GONE);
+                            image_url.setVisibility(View.VISIBLE);
                         }
                     });
                 }
@@ -186,15 +211,15 @@ public class uploadFragment extends Fragment {
     }
 
     private void uploadImage(byte[] imageByte) {
-
         upload.setVisibility(View.VISIBLE);
         image_url.setVisibility(View.GONE);
 
         ProgressDialog pd = new ProgressDialog(getContext());
 
         pd.setTitle("Uploading Image...");
+        pd.setCancelable(false);
         pd.show();
-        StorageReference storageReference = FirebaseStorage.getInstance().getReference().child(userId)
+        StorageReference storageReference = FirebaseStorage.getInstance().getReference().child(userid)
                 .child(System.currentTimeMillis() + ".jpg");
 
         storageReference.child("images");
@@ -202,21 +227,30 @@ public class uploadFragment extends Fragment {
         storageReference.putBytes(imageByte).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                name_book = book_name.getText().toString();
 
                 pd.dismiss();
 
                 storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                     @Override
                     public void onSuccess(Uri uri) {
-                        databaseReference.child(userId).child("uploads").child(name_book).child("bookimg").setValue(uri.toString()).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        db = FirebaseDatabase.getInstance().getReference();
+                        databaseReference.child(userid).child("uploads").child(name_book).child("bookimg").setValue(uri.toString()).addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void unused) {
                                 Toast.makeText(getActivity(), "Image added to database", Toast.LENGTH_SHORT).show();
                             }
                         });
+
+                        db.child("books").child(userid).child(name_book).child("bookimg").setValue(uri.toString()).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void unused) {
+
+                            }
+                        });
+
                     }
                 });
-
 
             }
         }).addOnFailureListener(new OnFailureListener() {
