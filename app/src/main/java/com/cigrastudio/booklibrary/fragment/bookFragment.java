@@ -69,12 +69,13 @@ public class bookFragment extends Fragment {
                     for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
                         model = dataSnapshot1.getValue(ModelClass.class);
                         String userid = dataSnapshot.getKey();
-
+                        key = dataSnapshot.getKey();
+                        model.setKey(key);
                         userData.add(model);
                     }
-                    key = dataSnapshot.getKey();
-                    model.setKey(key);
-                    Log.d("TAG", "Key: " + key);
+
+
+                    Log.d("TAG", "Key is: " + key);
                 }
                 AdapterClass adaptor=new AdapterClass(userData,context);
                 recyclerView.setAdapter(adaptor);
