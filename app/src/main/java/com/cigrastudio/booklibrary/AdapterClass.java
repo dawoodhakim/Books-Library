@@ -78,10 +78,11 @@ public class AdapterClass extends RecyclerView.Adapter<AdapterClass.myviewholder
             public void onClick(View view) {
                 Toast.makeText(view.getContext(), "Clicked on position " + position, Toast.LENGTH_SHORT).show();
                 Log.d("TAG", "Position: " + data.get(position).getKey());
-                Intent intent = new Intent(view.getContext(),Itemview_Detail_Activity.class);
+                Intent intent = new Intent(view.getContext(), Itemview_Detail_Activity.class);
                 intent.putExtra("book_name",String.valueOf(data.get(position).getBook_name()) );
                 Log.d("TAG", "Book Name: " + data.get(position).getBook_name());
-                context.startActivity(intent);
+                Log.d("TAG", "Context: " + context);
+                view.getContext().startActivity(intent);
 
             }
         });
