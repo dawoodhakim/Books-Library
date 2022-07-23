@@ -2,7 +2,7 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="450dp"
+    android:layout_height="325dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_marginLeft="10dp"
     android:layout_marginRight="10dp"
@@ -19,7 +19,7 @@
         <TextView
             android:id="@+id/description_recyclerview"
             android:layout_width="376dp"
-            android:layout_height="131dp"
+            android:layout_height="100dp"
 
             android:gravity="center_horizontal|center_vertical"
             android:textColor="#095B66"
@@ -33,7 +33,6 @@
             android:id="@+id/textView11"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
             android:text="Description"
             android:textColor="#1D3336"
             android:textSize="20sp"
@@ -47,7 +46,6 @@
             android:id="@+id/category_recyclerview"
             android:layout_width="178dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="14dp"
 
             android:layout_marginEnd="32dp"
             android:gravity="center_vertical|center_horizontal"
@@ -61,7 +59,6 @@
             android:id="@+id/textView8"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="14dp"
             android:layout_marginEnd="80dp"
             android:text="Category"
             android:textColor="#1D3336"
@@ -76,8 +73,8 @@
             android:id="@+id/image_recyclerview"
             android:layout_width="204dp"
             android:layout_height="128dp"
-            android:layout_marginTop="16dp"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginStart="132dp"
+            android:layout_marginTop="4dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -85,23 +82,21 @@
             android:id="@+id/textView6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
             android:layout_marginEnd="60dp"
             android:text="Book Name"
             android:textColor="#1D3336"
             android:textSize="15sp"
             android:textStyle="italic"
             app:layout_constraintEnd_toStartOf="@+id/book_name_recyclerview"
-            app:layout_constraintHorizontal_bias="0.787"
+            app:layout_constraintHorizontal_bias="0.755"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
         <TextView
             android:id="@+id/book_name_recyclerview"
-            android:layout_width="178dp"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="32dp"
+            android:layout_marginEnd="8dp"
 
             android:gravity="center_horizontal|center_vertical"
             android:textColor="#095B66"
@@ -115,7 +110,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="40dp"
-            android:layout_marginTop="32dp"
             android:layout_marginEnd="80dp"
             android:text="Uploade by"
             android:textColor="#1D3336"
@@ -130,7 +124,6 @@
             android:id="@+id/upload_by_recyclerview"
             android:layout_width="178dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
             android:layout_marginEnd="32dp"
 
             android:gravity="center_horizontal|center_vertical"

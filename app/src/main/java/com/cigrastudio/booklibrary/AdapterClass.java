@@ -80,8 +80,10 @@ public class AdapterClass extends RecyclerView.Adapter<AdapterClass.myviewholder
                 Log.d("TAG", "Position: " + data.get(position).getKey());
                 Intent intent = new Intent(view.getContext(), Itemview_Detail_Activity.class);
                 intent.putExtra("book_name",String.valueOf(data.get(position).getBook_name()) );
-                Log.d("TAG", "Book Name: " + data.get(position).getBook_name());
-                Log.d("TAG", "Context: " + context);
+                intent.putExtra("category",String.valueOf(data.get(position).getCategory()));
+                intent.putExtra("description",String.valueOf(data.get(position).getDescription()));
+//                Log.d("TAG", "Book Name: " + data.get(position).getBook_name());
+//                Log.d("TAG", "Context: " + context);
                 view.getContext().startActivity(intent);
 
             }
