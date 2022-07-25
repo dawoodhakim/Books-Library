@@ -72,6 +72,7 @@ public class AdapterClass extends RecyclerView.Adapter<AdapterClass.myviewholder
         Log.d("TAG", "Position of Key: " +position+ data.get(position).getKey());
         Log.d("TAG", "Position User ID: " + uid);
 
+
             if (data.get(position).getKey().equals(uid)){
                 holder.itemView.setVisibility(View.GONE);
                 holder.itemView.setLayoutParams(new RecyclerView.LayoutParams(0, 0));
