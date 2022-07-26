@@ -7,6 +7,30 @@
     tools:context=".Itemview_Detail_Activity">
 
     <TextView
+        android:id="@+id/uploadedby_itemview_activity"
+        android:layout_width="173dp"
+        android:layout_height="28dp"
+        android:layout_marginTop="56dp"
+        android:layout_marginEnd="24dp"
+        android:gravity="center_vertical|center_horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/book_itemview_activity" />
+
+    <TextView
+        android:id="@+id/textView7"
+        android:layout_width="wrap_content"
+        android:layout_height="28dp"
+        android:layout_marginTop="56dp"
+        android:layout_marginEnd="92dp"
+        android:gravity="center_horizontal|center_vertical"
+        android:text="Uploadedby"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/book_itemview_activity"
+        app:layout_constraintHorizontal_bias="0.34"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView9" />
+
+    <TextView
         android:id="@+id/textView12"
         android:layout_width="wrap_content"
         android:layout_height="28dp"
@@ -73,6 +97,15 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toStartOf="@+id/book_itemview_activity"
         app:layout_constraintHorizontal_bias="0.372"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.mikhaellopez.circularimageview.CircularImageView
+        android:id="@+id/image_itemview_activity"
+        android:layout_width="296dp"
+        android:layout_height="179dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

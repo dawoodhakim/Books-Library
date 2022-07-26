@@ -39,7 +39,7 @@ public class AdapterClass extends RecyclerView.Adapter<AdapterClass.myviewholder
 
 
 
-    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("users").child(uid).child("fav");
+//    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("users").child(uid).child("fav");
 
         ArrayList<ModelClass> data=new ArrayList<>();
         Context context;
@@ -62,7 +62,7 @@ public class AdapterClass extends RecyclerView.Adapter<AdapterClass.myviewholder
 
     @Override
     public void onBindViewHolder(@NonNull myviewholder holder, int position) {
-        final  String key=data.get(position).getKey();
+//        final  String key=data.get(position).getKey();
         holder.uploadedby.setText(data.get(position).getUploadedby());
         holder.book_name.setText(data.get(position).getBook_name());
         holder.category.setText(data.get(position).getCategory());
@@ -72,37 +72,38 @@ public class AdapterClass extends RecyclerView.Adapter<AdapterClass.myviewholder
         Log.d("TAG", "Position of Key: " +position+ data.get(position).getKey());
         Log.d("TAG", "Position User ID: " + uid);
 
-
-            if (data.get(position).getKey().equals(uid)){
-                holder.itemView.setVisibility(View.GONE);
-                holder.itemView.setLayoutParams(new RecyclerView.LayoutParams(0, 0));
-            }
-
-
+//
+//            if (data.get(position).getKey().equals(uid)){
+//                holder.itemView.setVisibility(View.GONE);
+//                holder.itemView.setLayoutParams(new RecyclerView.LayoutParams(0, 0));
+//            }
 
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(view.getContext(), "Clicked on position " + position, Toast.LENGTH_SHORT).show();
 
-                Intent intent = new Intent(view.getContext(), Itemview_Detail_Activity.class);
-                intent.putExtra("book_name",String.valueOf(data.get(position).getBook_name()) );
-                intent.putExtra("category",String.valueOf(data.get(position).getCategory()));
-                intent.putExtra("description",String.valueOf(data.get(position).getDescription()));
-//                Log.d("TAG", "Book Name: " + data.get(position).getBook_name());
-//                Log.d("TAG", "Context: " + context);
-                view.getContext().startActivity(intent);
 
-            }
-        });
-
-        holder.favourite.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                    // Method 1
-            moveFirebaseRecord(holder.databaseReference.child(key), holder.databaseReference2.child(key));
+//        holder.itemView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Toast.makeText(view.getContext(), "Clicked on position " + position, Toast.LENGTH_SHORT).show();
+//
+//                Intent intent = new Intent(view.getContext(), Itemview_Detail_Activity.class);
+//                intent.putExtra("book_name",String.valueOf(data.get(position).getBook_name()) );
+//                intent.putExtra("category",String.valueOf(data.get(position).getCategory()));
+//                intent.putExtra("description",String.valueOf(data.get(position).getDescription()));
+//                intent.putExtra("bookimg",data.get(position).getBookimg());
+////                Log.d("TAG", "Book Name: " + data.get(position).getBook_name());
+////                Log.d("TAG", "Context: " + context);
+//                view.getContext().startActivity(intent);
+//
+//            }
+//        });
+//
+//        holder.favourite.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//                    // Method 1
+//            moveFirebaseRecord(holder.databaseReference.child(key), holder.databaseReference2.child(key));
 
 
             // Method 2
@@ -133,9 +134,9 @@ public class AdapterClass extends RecyclerView.Adapter<AdapterClass.myviewholder
 //                        Toast.makeText(v.getContext(), "Book Added To faviourite", Toast.LENGTH_SHORT).show();
 //                    }
 //                });
-
-            }
-        });
+//
+//            }
+//        });
 
 
     }
@@ -157,8 +158,8 @@ public class AdapterClass extends RecyclerView.Adapter<AdapterClass.myviewholder
             super(itemView);
             user= FirebaseAuth.getInstance().getCurrentUser();
             firebaseDatabase=FirebaseDatabase.getInstance();
-            databaseReference=firebaseDatabase.getReference().child("books");
-            databaseReference2=firebaseDatabase.getReference().child("users").child(uid).child("Favourite");
+//            databaseReference=firebaseDatabase.getReference().child("books");
+//            databaseReference2=firebaseDatabase.getReference().child("users").child(uid).child("Favourite");
             favourite=itemView.findViewById(R.id.btn_favorite);
             uploadedby=itemView.findViewById(R.id.upload_by_recyclerview);
             book_name=itemView.findViewById(R.id.book_name_recyclerview);
@@ -175,22 +176,22 @@ public class AdapterClass extends RecyclerView.Adapter<AdapterClass.myviewholder
 //            })
         }
     }
-    public void moveFirebaseRecord(DatabaseReference fromPath,final DatabaseReference toPath){
-        fromPath.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                toPath.setValue(snapshot.getValue(), new DatabaseReference.CompletionListener() {
-                    @Override
-                    public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
-
-                    }
-                });
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-    }
+//    public void moveFirebaseRecord(DatabaseReference fromPath,final DatabaseReference toPath){
+//        fromPath.addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                toPath.setValue(snapshot.getValue(), new DatabaseReference.CompletionListener() {
+//                    @Override
+//                    public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
+//
+//                    }
+//                });
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//            }
+//        });
+//    }
 }

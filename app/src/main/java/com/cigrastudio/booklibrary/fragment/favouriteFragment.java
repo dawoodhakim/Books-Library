@@ -12,7 +12,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.cigrastudio.booklibrary.AdapterClass;
+import com.cigrastudio.booklibrary.AdapterClass_Book_fragment;
+import com.cigrastudio.booklibrary.AdapterClass_favourite_fragment;
 import com.cigrastudio.booklibrary.ModelClass;
 import com.cigrastudio.booklibrary.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -33,6 +34,8 @@ public class favouriteFragment extends Fragment {
     ArrayList<ModelClass> userData;
     RecyclerView recyclerView;
     Context context;
+    String uid = user.getUid();
+
 
     public favouriteFragment() {
         // Required empty public constructor
@@ -46,8 +49,8 @@ public class favouriteFragment extends Fragment {
         // Inflate the layout for this com.cigrastudio.booklibrary.fragment
         View view= inflater.inflate(R.layout.fragment_favorite, container, false);
         recyclerView=view.findViewById(R.id.recycler_view_favourite_fragment);
-        String uid = user.getUid();
         firebaseDatabase=FirebaseDatabase.getInstance();
+        String uid = user.getUid().toString();
         databaseReference=firebaseDatabase.getReference().child("users");
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false));
         databaseReference.child(uid).child("Favourite").addValueEventListener(new ValueEventListener() {
@@ -55,14 +58,13 @@ public class favouriteFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 userData=new ArrayList<>();
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                String uid = user.getUid().toString();
                 for(DataSnapshot dataSnapshot:snapshot.getChildren()){
                     ModelClass model = dataSnapshot.getValue(ModelClass.class);
                     String userid = dataSnapshot.getKey();
                     model.setUserid(userid);
                     userData.add(model);
                 }
-                AdapterClass adaptor=new AdapterClass(userData,context);
+                AdapterClass_favourite_fragment adaptor=new AdapterClass_favourite_fragment(userData,context);
                 recyclerView.setAdapter(adaptor);
 
 //                Log.d("TAG", "User data is: " + userData);

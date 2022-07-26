@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.cigrastudio.booklibrary.AdapterClass;
+import com.cigrastudio.booklibrary.AdapterClass_Book_fragment;
 import com.cigrastudio.booklibrary.ModelClass;
 import com.cigrastudio.booklibrary.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -77,7 +78,7 @@ public class bookFragment extends Fragment {
 
                     Log.d("TAG", "Key is: " + key);
                 }
-                AdapterClass adaptor=new AdapterClass(userData,context);
+                AdapterClass_Book_fragment adaptor=new AdapterClass_Book_fragment(userData,context);
                 recyclerView.setAdapter(adaptor);
 
 //                Log.d("TAG", "User data is: " + userData);
